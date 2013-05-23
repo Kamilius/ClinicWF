@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<patient-info>
+  <patient>
+    <first-name>Mykola</first-name>
+    <last-name>Veresen</last-name>
+    <age>50</age>
+    <sex>male</sex>
+    <id>1</id>
+    <country>Canada</country>
+    <city>Toronto</city>
+    <street>Sheva str.</street>
+    <house-number>10</house-number>
+    <flat-number>2</flat-number>
+    <phone-number>555666666</phone-number>
+  </patient>
+  <history>
+    <patient>1</patient>
+    <startDate>
+      <day>29</day>
+      <month>4</month>
+      <year>2013</year>
+    </startDate>
+    <desease>Pain in the arse</desease>
+    <sympthoms>Strong butt hurt</sympthoms>
+    <drugs>Morphine</drugs>
+    <status>Almost cured</status>
+    <doctor>0</doctor>
+    <endDate>
+      <day>3</day>
+      <month>5</month>
+      <year>2013</year>
+    </endDate>
+  </history>
+</patient-info>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<patient-info>
+  <patient>
+    <first-name>John</first-name>
+    <last-name>Smith</last-name>
+    <age>24</age>
+    <sex>male</sex>
+    <id>2</id>
+    <country>Ukraine</country>
+    <city>Kyiv</city>
+    <street>Arma str.</street>
+    <house-number>3</house-number>
+    <flat-number>6</flat-number>
+    <phone-number>2242425</phone-number>
+  </patient>
+  <history>
+    <patient>2</patient>
+    <startDate>
+      <day>29</day>
+      <month>4</month>
+      <year>2013</year>
+    </startDate>
+    <desease>Migrene</desease>
+    <sympthoms>Strong head ache</sympthoms>
+    <drugs>Analginum</drugs>
+    <status>Almost cured</status>
+    <doctor>0</doctor>
+    <endDate>
+      <day>3</day>
+      <month>5</month>
+      <year>2013</year>
+    </endDate>
+  </history>
+</patient-info>

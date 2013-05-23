@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <firstName>Charlie</firstName>
+  <lastName>Sheen</lastName>
+  <age>50</age>
+  <sex>male</sex>
+  <contacts>
+    <country>US</country>
+    <city>Brighton Beach</city>
+    <street>Sunny str.</street>
+    <houseNumber>3</houseNumber>
+    <flatNumber>5</flatNumber>
+    <phoneNumber>3540685</phoneNumber>
+  </contacts>
+  <contractExpirationDate>2014-06-27T00:00:00</contractExpirationDate>
+  <idNumber>3</idNumber>
+  <doctorPatients />
+</doctor>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <firstName>Anderson</firstName>
+  <lastName>Neo</lastName>
+  <age>29</age>
+  <sex>male</sex>
+  <contacts>
+    <country>USA</country>
+    <city>New York</city>
+    <street>Washington str.</street>
+    <houseNumber>90</houseNumber>
+    <flatNumber>21</flatNumber>
+    <phoneNumber>5059999</phoneNumber>
+  </contacts>
+  <contractExpirationDate>2014-03-23T00:00:00</contractExpirationDate>
+  <idNumber>1</idNumber>
+  <doctorPatients />
+</doctor>

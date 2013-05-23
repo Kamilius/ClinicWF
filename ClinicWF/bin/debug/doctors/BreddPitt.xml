@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <firstName>Bredd</firstName>
+  <lastName>Pitt</lastName>
+  <age>42</age>
+  <sex>male</sex>
+  <contacts>
+    <country>Spain</country>
+    <city>Madrid</city>
+    <street>Castaneda str.</street>
+    <houseNumber>1</houseNumber>
+    <flatNumber>1</flatNumber>
+    <phoneNumber>221133</phoneNumber>
+  </contacts>
+  <contractExpirationDate>2014-03-23T00:00:00</contractExpirationDate>
+  <idNumber>2</idNumber>
+  <doctorPatients />
+</doctor>
