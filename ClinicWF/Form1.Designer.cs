@@ -42,22 +42,23 @@
             this.toolStripMenuItem2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(64, 449);
+            this.menuStrip1.Size = new System.Drawing.Size(98, 449);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(51, 17);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(85, 19);
             this.toolStripMenuItem1.Text = "Doctors";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.button1_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(51, 17);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(85, 19);
             this.toolStripMenuItem2.Text = "Patients";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // Form1
             // 

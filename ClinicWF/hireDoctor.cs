@@ -12,19 +12,19 @@ namespace ClinicWF
 {
     public partial class hireDoctor : Form
     {
-        public Patients parentForm;
+        public Doctors parentForm;
         public int currentDoctorIndex;
         public hireDoctor()
         {
             InitializeComponent();
         }
-        public hireDoctor(Patients parent)
+        public hireDoctor(Doctors parent)
         {
             InitializeComponent();
             parentForm = parent;
             currentDoctorIndex = -1;
         }
-        public hireDoctor(Patients parent, int currentDoctorId)
+        public hireDoctor(Doctors parent, int currentDoctorId)
         {
             InitializeComponent();
 

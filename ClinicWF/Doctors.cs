@@ -13,16 +13,16 @@ using System.Xml.Serialization;
 
 namespace ClinicWF
 {
-    public partial class Patients : Form
+    public partial class Doctors : Form
     {
         public List<doctor> doctorList;
         public int currentDoctorId;
 
-        public Patients()
+        public Doctors()
         {
             InitializeComponent();
         }
-        public Patients(Form1 parent)
+        public Doctors(Form1 parent)
         {
             InitializeComponent();
 
@@ -45,19 +45,6 @@ namespace ClinicWF
             }
         }
 
-        public void saveDoctorInfo(List<doctor> doctorList)
-        {
-            foreach (doctor d in doctorList)
-            {
-                XmlSerializer SerializerDoc = new XmlSerializer(typeof(doctor));
-
-                TextWriter WriteFileStream = new StreamWriter("doctors/" + d.firstName + d.lastName + ".xml");
-                SerializerDoc.Serialize(WriteFileStream, d);
-
-                WriteFileStream.Close();
-            }
-            Console.WriteLine("Doctors info is saved!");
-        }
         public void saveDoctorInfo()
         {
             foreach (doctor d in doctorList)

@@ -12,7 +12,8 @@ namespace ClinicWF
 {
     public partial class Form1 : Form
     {
-        public Patients doctorsMenu;
+        public Doctors doctorsMenu;
+        public Patients patientsMenu;
         public Form1()
         {
             InitializeComponent();
@@ -21,15 +22,38 @@ namespace ClinicWF
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (this.MdiChildren.Length == 0)
+            if (this.MdiChildren.Length != 0)
             {
-                doctorsMenu = new Patients(this);
-                doctorsMenu.Show();
-                doctorsMenu.Left = 0;
-                doctorsMenu.Top = 0;
-                doctorsMenu.Size = this.ClientRectangle.Size;
-                doctorsMenu.WindowState = FormWindowState.Maximized;
+                foreach (Form child in this.MdiChildren)
+                {
+                    child.Close();
+                }
             }
+
+            doctorsMenu = new Doctors(this);
+            doctorsMenu.Show();
+            doctorsMenu.Left = 0;
+            doctorsMenu.Top = 0;
+            doctorsMenu.Size = this.ClientRectangle.Size;
+            doctorsMenu.WindowState = FormWindowState.Maximized;
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length != 0)
+            {
+                foreach (Form child in this.MdiChildren)
+                {
+                    child.Close();
+                }
+            }
+
+            patientsMenu = new Patients(this);
+            patientsMenu.Show();
+            patientsMenu.Left = 0;
+            patientsMenu.Top = 0;
+            patientsMenu.Size = this.ClientRectangle.Size;
+            patientsMenu.WindowState = FormWindowState.Maximized;
         }
     }
     public class Contacts
