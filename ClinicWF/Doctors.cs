@@ -58,6 +58,19 @@ namespace ClinicWF
             }
             Console.WriteLine("Doctors info is saved!");
         }
+        public void saveDoctorInfo()
+        {
+            foreach (doctor d in doctorList)
+            {
+                XmlSerializer SerializerDoc = new XmlSerializer(typeof(doctor));
+
+                TextWriter WriteFileStream = new StreamWriter("doctors/" + d.firstName + d.lastName + ".xml");
+                SerializerDoc.Serialize(WriteFileStream, d);
+
+                WriteFileStream.Close();
+            }
+            Console.WriteLine("Doctors info is saved!");
+        }
         public void loadDoctorInfo(List<doctor> doctorList)
         {
             DirectoryInfo di = new DirectoryInfo("doctors/");
@@ -123,12 +136,14 @@ namespace ClinicWF
         {
             hireDoctor hireForm = new hireDoctor(this);
             hireForm.ShowDialog();
+            saveDoctorInfo();
             refreshListBox();
         }
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             hireDoctor hireForm = new hireDoctor(this, currentDoctorId);
             hireForm.ShowDialog();
+            saveDoctorInfo();
             refreshListBox();
         }
     }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <firstName>Andriy</firstName>
+  <lastName>Bykov</lastName>
+  <age>43</age>
+  <sex>Male</sex>
+  <contacts>
+    <country>Russia</country>
+    <city>Moskow</city>
+    <street>Koroleva</street>
+    <houseNumber>24</houseNumber>
+    <flatNumber>34</flatNumber>
+    <phoneNumber>77899898</phoneNumber>
+  </contacts>
+  <contractExpirationDate>2014-05-23T00:00:00</contractExpirationDate>
+  <idNumber>4</idNumber>
+  <doctorPatients />
+</doctor>
