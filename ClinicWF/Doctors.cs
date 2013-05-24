@@ -15,8 +15,8 @@ namespace ClinicWF
 {
     public partial class Doctors : Form
     {
-        public List<doctor> doctorList;
         public int currentDoctorId;
+        public Form1 parent;
 
         public Doctors()
         {
@@ -27,9 +27,7 @@ namespace ClinicWF
             InitializeComponent();
 
             this.MdiParent = parent;
-
-            doctorList = new List<doctor>();
-            loadDoctorInfo(doctorList);
+            this.parent = parent;
 
             refreshListBox();
         }
@@ -38,7 +36,7 @@ namespace ClinicWF
         {
             this.listBox1.Items.Clear();
             this.listBox1.Refresh();
-            foreach (doctor d in doctorList)
+            foreach (doctor d in parent.doctorList)
             {
                 currentDoctorId = d.idNumber;
                 this.listBox1.Items.Add(d.firstName + " " + d.lastName);
@@ -47,7 +45,7 @@ namespace ClinicWF
 
         public void saveDoctorInfo()
         {
-            foreach (doctor d in doctorList)
+            foreach (doctor d in parent.doctorList)
             {
                 XmlSerializer SerializerDoc = new XmlSerializer(typeof(doctor));
 
@@ -58,34 +56,13 @@ namespace ClinicWF
             }
             Console.WriteLine("Doctors info is saved!");
         }
-        public void loadDoctorInfo(List<doctor> doctorList)
-        {
-            DirectoryInfo di = new DirectoryInfo("doctors/");
-            FileInfo[] fi = di.GetFiles();
-
-            if (fi.Length > 0)
-            {
-                doctorList.Clear();
-                XmlSerializer SerializerDoc = new XmlSerializer(typeof(doctor));
-                FileStream ReadFileStream;
-
-                for (int i = 0; i < fi.Length; i++)
-                {
-                    ReadFileStream = new FileStream("doctors/" + fi[i].Name, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    doctorList.Add(new doctor());
-                    doctorList[i] = (doctor)SerializerDoc.Deserialize(ReadFileStream);
-
-                    ReadFileStream.Close();
-                }
-            }
-        }
 
         private void listBox1_Click(object sender, EventArgs e)
         {
             try
             {
                 this.textBox1.Clear();
-                foreach (doctor d in doctorList)
+                foreach (doctor d in parent.doctorList)
                 {
                     if ((d.firstName + " " + d.lastName) == this.listBox1.SelectedItem.ToString())
                     {
@@ -104,11 +81,11 @@ namespace ClinicWF
             try
             {
                 this.textBox1.Clear();
-                foreach (doctor d in doctorList)
+                foreach (doctor d in parent.doctorList)
                 {
                     if ((d.firstName + " " + d.lastName) == this.listBox1.SelectedItem.ToString())
                     {
-                        doctorList.Remove(d);
+                        parent.doctorList.Remove(d);
                         break;
                     }
                 }
@@ -132,36 +109,6 @@ namespace ClinicWF
             hireForm.ShowDialog();
             saveDoctorInfo();
             refreshListBox();
-        }
-    }
-    
-    public class doctor : SimpleHuman
-    {
-        public DateTime contractExpirationDate;
-        public int idNumber;
-        [NonSerialized()]
-        public List<int> doctorPatients;
-
-        public doctor()
-            : base()
-        {
-            doctorPatients = new List<int>();
-            contractExpirationDate = new DateTime();
-        }
-
-        public doctor(string name, string surname, int age, string sex, int doctorID, Contacts c)
-            : base(name, surname, age, sex, c)
-        {
-            contractExpirationDate = new DateTime(9999);
-            idNumber = doctorID;
-            doctorPatients = new List<int>();
-        }
-
-        public override string ToString()
-        {
-            return "Doctor patient's count: " + doctorPatients.Count +
-                   base.ToString() +
-                   Environment.NewLine + "Contract expiration date: " + contractExpirationDate.Day + "/" + contractExpirationDate.Month + "/" + contractExpirationDate.Year;
         }
     }
 }
