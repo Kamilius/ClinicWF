@@ -45,18 +45,18 @@ namespace ClinicWF
 
         public void showIllnessHistory(object sender, EventArgs e)
         {
-            string choice = this.listBox1.SelectedItem.ToString();
-            if (parent.patientList.Contains(parent.patientList.Find(patient => patient.firstName + " " + patient.lastName == choice)))
-            {
-                int index = parent.patientList.FindIndex(patient => patient.firstName + " " + patient.lastName == choice);
-                int illnessHistoryIndex = parent.illnessHistoryList.FindIndex(IllnessHistory => IllnessHistory.patientID == parent.patientList[index].idNumber);
-                int doctorId = parent.illnessHistoryList[illnessHistoryIndex].currentDoctor;
-                int doctorIndex = parent.doctorList.FindIndex(doctor => doctor.idNumber == doctorId);
-
-
-                try
+            try
+            { 
+                string choice = this.listBox1.SelectedItem.ToString();
+                if (parent.patientList.Contains(parent.patientList.Find(patient => patient.firstName + " " + patient.lastName == choice)))
                 {
+                    int index = parent.patientList.FindIndex(patient => patient.firstName + " " + patient.lastName == choice);
+                    int illnessHistoryIndex = parent.illnessHistoryList.FindIndex(IllnessHistory => IllnessHistory.patientID == parent.patientList[index].idNumber);
+                    int doctorId = parent.illnessHistoryList[illnessHistoryIndex].currentDoctor;
+                    int doctorIndex = parent.doctorList.FindIndex(doctor => doctor.idNumber == doctorId);
+
                     this.textBox1.Clear();
+                    this.textBox2.Clear();
                     foreach (patient p in parent.patientList)
                     {
                         if ((p.firstName + " " + p.lastName) == this.listBox1.SelectedItem.ToString())
@@ -76,7 +76,7 @@ namespace ClinicWF
                                     {
                                         currentDoctor = "No doctor assigned";
                                     }
-                                    this.textBox2.Text = iH.ToString() + "Current doctor: " + currentDoctor;
+                                    this.textBox2.Text = iH.ToString() + Environment.NewLine + "Current doctor: " + currentDoctor;
                                     break;
                                 }
                             }
@@ -84,15 +84,10 @@ namespace ClinicWF
                         }
                     }
                 }
-                catch
-                {
-                }
+                
             }
-            else
+            catch
             {
-                Console.Clear();
-                Console.WriteLine("Sorry, but there is no patient with such ID.");
-                Console.WriteLine();
             }
         }
 

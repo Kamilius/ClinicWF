@@ -31,6 +31,7 @@ namespace ClinicWF
             patientList = new List<patient>();
             illnessHistoryList = new List<IllnessHistory>();
             loadPatients();
+            attachDoctorToPatient();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -103,6 +104,49 @@ namespace ClinicWF
                     patientList.Add(new patient());
                     patientList[i].loadPatient(fi[i].Name, patientList);
                 }
+            }
+        }
+        public void attachDoctorToPatient()
+        {
+            foreach (IllnessHistory iH in illnessHistoryList)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (iH.currentDoctor == 0)
+                    {
+                        foreach (doctor d in doctorList)
+                        {
+                            if (d.doctorPatients.Count == i)
+                            {
+                                iH.currentDoctor = d.idNumber;
+                                d.doctorPatients.Add(iH.patientID);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+
+            int IhCounter = 0;
+            foreach (doctor d in doctorList)
+            {
+                foreach (IllnessHistory iH in illnessHistoryList)
+                {
+                    if (iH.currentDoctor == d.idNumber)
+                    {
+                        if (!d.doctorPatients.Contains(iH.patientID))
+                        {
+                            d.doctorPatients.Add(iH.patientID);
+                            IhCounter++;
+                        }
+                    }
+                }
+                IhCounter += d.doctorPatients.Count;
+            }
+            if (IhCounter < illnessHistoryList.Count)
+            {
+                MessageBox.Show("You're laking doctors! Hire more doctors!");
             }
         }
     }
@@ -417,12 +461,12 @@ namespace ClinicWF
         }
         public override string ToString()
         {
-            string str = "\nStart of curing: " + startingDate.Day + "/" + startingDate.Month + "/" + startingDate.Year +
-                         "\nDesease name: " + deseaseName +
-                         "\nSympthoms: " + sympthoms +
-                         "\nDrugs list: " + drugs +
-                         "\nStatus of desease: " + curingStatus +
-                         "\nApproximate curing end date: " + approxEndingDate.Day + "/" + approxEndingDate.Month + "/" + approxEndingDate.Year;
+            string str = "Date of arrival: " + startingDate.Day + "/" + startingDate.Month + "/" + startingDate.Year +
+                         Environment.NewLine + "Desease name: " + deseaseName +
+                         Environment.NewLine + "Sympthoms: " + sympthoms +
+                         Environment.NewLine + "Drugs list: " + drugs +
+                         Environment.NewLine + "Status of desease: " + curingStatus +
+                         Environment.NewLine + "Approximate curing end date: " + approxEndingDate.Day + "/" + approxEndingDate.Month + "/" + approxEndingDate.Year;
             return str;
         }
     }
