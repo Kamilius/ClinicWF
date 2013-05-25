@@ -14,5 +14,7 @@
   </contacts>
   <contractExpirationDate>2014-03-23T00:00:00</contractExpirationDate>
   <idNumber>2</idNumber>
-  <doctorPatients />
+  <doctorPatients>
+    <int>1</int>
+  </doctorPatients>
 </doctor>

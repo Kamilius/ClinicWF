@@ -20,11 +20,14 @@ namespace ClinicWF
         public List<doctor> doctorList;
         public List<patient> patientList;
         public List<IllnessHistory> illnessHistoryList;
+        public List<User> usersList;
 
         public Form1()
         {
             InitializeComponent();
             this.IsMdiContainer = true;
+            usersList = new List<User>();
+
             doctorList = new List<doctor>();
             loadDoctorInfo(doctorList);
 
@@ -32,6 +35,8 @@ namespace ClinicWF
             illnessHistoryList = new List<IllnessHistory>();
             loadPatients();
             attachDoctorToPatient();
+
+            securityCheckInit();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -110,6 +115,7 @@ namespace ClinicWF
         {
             foreach (IllnessHistory iH in illnessHistoryList)
             {
+                //not more than 3 patients per doctor
                 for (int i = 0; i < 3; i++)
                 {
                     if (iH.currentDoctor == 0)
@@ -148,6 +154,45 @@ namespace ClinicWF
             {
                 MessageBox.Show("You're laking doctors! Hire more doctors!");
             }
+        }
+        public void securityCheckInit()
+        {
+            XmlDocument userDoc = new XmlDocument();
+            userDoc.Load("userInfo/users.xml");
+
+            foreach (XmlNode users in userDoc.ChildNodes)
+            {
+                if (users.HasChildNodes)
+                {
+                    XmlNodeList user = users.ChildNodes;
+                    for (int i = 0; i < user.Count; i++)
+                    {
+                        usersList.Add(new User(user[i].ChildNodes[0].InnerText, user[i].ChildNodes[1].InnerText));
+                    }
+                }
+            }
+
+            if (this.MdiChildren.Length != 0)
+            {
+                foreach (Form child in this.MdiChildren)
+                {
+                    child.Close();
+                }
+            }
+
+            loginForm authorization = new loginForm(this);
+            
+            authorization.Left = 0;
+            authorization.Top = 0;
+            authorization.Size = this.ClientRectangle.Size;
+            authorization.WindowState = FormWindowState.Maximized;
+            authorization.Show();
+        }
+        public void authPassed(string userName)
+        {
+            this.toolStripMenuItem1.Enabled = true;
+            this.toolStripMenuItem2.Enabled = true;
+            this.Text = "ClinicWF - " + userName;
         }
     }
     public class Contacts
@@ -267,8 +312,6 @@ namespace ClinicWF
 
             XmlNodeList root = doc.GetElementsByTagName("patient");
             root = root[0].ChildNodes;
-
-            patientList.Add(new patient());
 
             foreach (XmlNode child in root)
             {
@@ -468,6 +511,23 @@ namespace ClinicWF
                          Environment.NewLine + "Status of desease: " + curingStatus +
                          Environment.NewLine + "Approximate curing end date: " + approxEndingDate.Day + "/" + approxEndingDate.Month + "/" + approxEndingDate.Year;
             return str;
+        }
+    }
+    public class User
+    {
+        public string username;
+        public string password;
+
+        public User()
+        {
+            username = "";
+            password = "";
+        }
+
+        public User(string name, string pass)
+        {
+            username = name;
+            password = pass;
         }
     }
 }

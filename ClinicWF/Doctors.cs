@@ -54,7 +54,6 @@ namespace ClinicWF
 
                 WriteFileStream.Close();
             }
-            Console.WriteLine("Doctors info is saved!");
         }
 
         private void listBox1_Click(object sender, EventArgs e)
@@ -80,20 +79,26 @@ namespace ClinicWF
         {
             try
             {
-                this.textBox1.Clear();
-                foreach (doctor d in parent.doctorList)
+                MessageBox.Show("Are you sure, you want to fire this doctor?", "Fire doctor", MessageBoxButtons.YesNo);
+
+                if (DialogResult == System.Windows.Forms.DialogResult.Yes)
                 {
-                    if ((d.firstName + " " + d.lastName) == this.listBox1.SelectedItem.ToString())
+                    this.textBox1.Clear();
+                    foreach (doctor d in parent.doctorList)
                     {
-                        parent.doctorList.Remove(d);
-                        break;
+                        if ((d.firstName + " " + d.lastName) == this.listBox1.SelectedItem.ToString())
+                        {
+                            parent.doctorList.Remove(d);
+                            File.Delete("doctors/" + d.firstName + d.lastName + ".xml");
+                            break;
+                        }
                     }
+                    refreshListBox();
                 }
-                refreshListBox();
             }
             catch
             {
-                MessageBox.Show("No item selected!!!");
+                MessageBox.Show("No doctor selected!!!");
             }
         }
         private void button1_Click(object sender, EventArgs e)

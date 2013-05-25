@@ -46,7 +46,8 @@ namespace ClinicWF
         public void showIllnessHistory(object sender, EventArgs e)
         {
             try
-            { 
+            {
+                currentPatientId = parent.patientList.Find(x => (x.firstName + " " + x.lastName) == this.listBox1.SelectedItem.ToString()).idNumber;
                 string choice = this.listBox1.SelectedItem.ToString();
                 if (parent.patientList.Contains(parent.patientList.Find(patient => patient.firstName + " " + patient.lastName == choice)))
                 {
@@ -68,7 +69,7 @@ namespace ClinicWF
                                 if (p.idNumber == iH.patientID)
                                 {
                                     string currentDoctor;
-                                    if (doctorIndex > 0)
+                                    if (doctorIndex >= 0)
                                     {
                                         currentDoctor = parent.doctorList[doctorIndex].firstName + " " + parent.doctorList[doctorIndex].lastName;
                                     }
@@ -90,10 +91,102 @@ namespace ClinicWF
             {
             }
         }
-
-        private void showIllnessHistory()
+        private void button1_Click(object sender, EventArgs e)
         {
+            inlistNewPatient inlistForm = new inlistNewPatient(this);
+            inlistForm.ShowDialog();
+            saveHistory(parent.patientList);
+            refreshListBox();
+        }
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            inlistNewPatient inlistForm = new inlistNewPatient(this, currentPatientId);
+            inlistForm.ShowDialog();
+            saveHistory(parent.patientList);
+            refreshListBox();
+        }
+        private void checkOutPatient(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show("Are you sure, you want to checkout a patient?", "Checkout patient", MessageBoxButtons.YesNo);
 
+                if (DialogResult == System.Windows.Forms.DialogResult.Yes)
+                {
+                    patient removePatient = this.parent.patientList.Find(x => (x.firstName + " " + x.lastName) == this.listBox1.SelectedItem.ToString());
+                    File.Delete("history/" + removePatient.firstName + removePatient.lastName + ".xml");
+                    int remIllnessIndex = this.parent.illnessHistoryList.FindIndex(x => x.patientID == removePatient.idNumber);
+                    this.parent.illnessHistoryList.RemoveAt(remIllnessIndex);
+                    this.parent.patientList.Remove(removePatient);
+                    refreshListBox();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("No patient selected!!!");
+            }
+        }
+        public void saveHistory(List<patient> pL)
+        {
+            foreach (patient p in pL)
+            {
+                if (currentPatientId == p.idNumber)
+                {
+                    int illnessHistoryIndex = this.parent.illnessHistoryList.FindIndex(x => x.patientID == p.idNumber);
+                    XmlWriter writer = null;
+
+                    try
+                    {
+                        XmlWriterSettings settings = new XmlWriterSettings();
+                        settings.Indent = true;
+                        writer = XmlWriter.Create("history/" + p.firstName + p.lastName + ".xml", settings);
+                        writer.WriteStartDocument();
+                        writer.WriteStartElement("patient-info");
+
+                        writer.WriteStartElement("patient");
+                        writer.WriteElementString("first-name", p.firstName);
+                        writer.WriteElementString("last-name", p.lastName);
+                        writer.WriteElementString("age", p.age.ToString());
+                        writer.WriteElementString("sex", p.sex);
+                        writer.WriteElementString("id", p.idNumber.ToString());
+                        writer.WriteElementString("country", p.contacts.country);
+                        writer.WriteElementString("city", p.contacts.city);
+                        writer.WriteElementString("street", p.contacts.street);
+                        writer.WriteElementString("house-number", p.contacts.houseNumber.ToString());
+                        writer.WriteElementString("flat-number", p.contacts.flatNumber.ToString());
+                        writer.WriteElementString("phone-number", p.contacts.phoneNumber.ToString());
+                        writer.WriteEndElement();
+
+                        writer.WriteStartElement("history");
+                        writer.WriteElementString("patient", parent.illnessHistoryList[illnessHistoryIndex].patientID.ToString());
+                        writer.WriteStartElement("startDate");
+                        writer.WriteElementString("day", parent.illnessHistoryList[illnessHistoryIndex].startingDate.Day.ToString());
+                        writer.WriteElementString("month", parent.illnessHistoryList[illnessHistoryIndex].startingDate.Month.ToString());
+                        writer.WriteElementString("year", parent.illnessHistoryList[illnessHistoryIndex].startingDate.Year.ToString());
+                        writer.WriteEndElement();
+                        writer.WriteElementString("desease", parent.illnessHistoryList[illnessHistoryIndex].deseaseName);
+                        writer.WriteElementString("sympthoms", parent.illnessHistoryList[illnessHistoryIndex].sympthoms);
+                        writer.WriteElementString("drugs", parent.illnessHistoryList[illnessHistoryIndex].drugs);
+                        writer.WriteElementString("status", parent.illnessHistoryList[illnessHistoryIndex].curingStatus);
+                        writer.WriteElementString("doctor", parent.illnessHistoryList[illnessHistoryIndex].currentDoctor.ToString());
+                        writer.WriteStartElement("endDate");
+                        writer.WriteElementString("day", parent.illnessHistoryList[illnessHistoryIndex].approxEndingDate.Day.ToString());
+                        writer.WriteElementString("month", parent.illnessHistoryList[illnessHistoryIndex].approxEndingDate.Month.ToString());
+                        writer.WriteElementString("year", parent.illnessHistoryList[illnessHistoryIndex].approxEndingDate.Year.ToString());
+                        writer.WriteEndElement();
+                        writer.WriteEndElement();
+                        writer.WriteEndElement();
+                        writer.WriteEndDocument();
+                    }
+                    finally
+                    {
+                        if (writer != null)
+                        {
+                            writer.Close();
+                        }
+                    }
+                }
+            }
         }
     }
 }

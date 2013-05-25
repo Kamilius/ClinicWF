@@ -267,7 +267,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "hireDoctor";
-            this.Text = "hireDoctor";
+            this.Text = "Hire doctor";
             this.ResumeLayout(false);
             this.PerformLayout();
 

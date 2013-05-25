@@ -34,6 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
+            this.buttonShowPatients = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -93,7 +94,7 @@
             // buttonEdit
             // 
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonEdit.Location = new System.Drawing.Point(466, 385);
+            this.buttonEdit.Location = new System.Drawing.Point(467, 386);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(75, 23);
             this.buttonEdit.TabIndex = 5;
@@ -101,12 +102,23 @@
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
-            // Patients
+            // buttonShowPatients
+            // 
+            this.buttonShowPatients.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonShowPatients.Location = new System.Drawing.Point(208, 386);
+            this.buttonShowPatients.Name = "buttonShowPatients";
+            this.buttonShowPatients.Size = new System.Drawing.Size(125, 23);
+            this.buttonShowPatients.TabIndex = 6;
+            this.buttonShowPatients.Text = "Show doctor\'s patients";
+            this.buttonShowPatients.UseVisualStyleBackColor = true;
+            // 
+            // Doctors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 418);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonShowPatients);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -115,7 +127,7 @@
             this.Controls.Add(this.listBox1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Patients";
+            this.Name = "Doctors";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Doctors";
             this.ResumeLayout(false);
@@ -131,5 +143,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button buttonEdit;
+        private System.Windows.Forms.Button buttonShowPatients;
     }
 }
